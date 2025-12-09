@@ -3,332 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio - Dashboard Power BI | Predicciones de Ventas TEXAD</title>
+    <title>TEXAD Sales Analytics | Power BI Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         :root {
-            --primary-dark: #0d1b2a;
-            --primary-blue: #1b263b;
-            --accent-blue: #415a77;
-            --light-blue: #778da9;
-            --text-light: #e0e1dd;
-            --accent-gold: #d9a741;
-            --white: #ffffff;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            --navy: #0f172a;
+            --slate: #1e293b;
+            --steel: #334155;
+            --gold: #eab308;
+            --gold-light: #f59e0b;
+            --white: #f8fafc;
+            --gray: #94a3b8;
         }
 
         body {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
-            color: var(--text-light);
-            line-height: 1.6;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--slate) 100%);
+            color: var(--white);
             min-height: 100vh;
             padding: 20px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        header {
-            text-align: center;
-            padding: 40px 0;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             margin-bottom: 40px;
         }
 
         .logo {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--accent-gold);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(90deg, var(--white), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .tagline {
-            font-size: 1.2rem;
-            color: var(--light-blue);
-            max-width: 600px;
-            margin: 0 auto;
-            font-weight: 300;
-        }
-
-        .profile-section {
+        .profile {
             display: flex;
             align-items: center;
-            gap: 30px;
-            margin-bottom: 50px;
-            padding: 30px;
-            background: rgba(27, 38, 59, 0.7);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(119, 141, 169, 0.3);
+            gap: 15px;
+            font-size: 0.95rem;
+            color: var(--gray);
         }
 
-        .profile-image {
-            width: 150px;
-            height: 150px;
+        .profile-icon {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--accent-blue), var(--light-blue));
+            background: linear-gradient(45deg, var(--steel), var(--slate));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
-            color: var(--white);
-            border: 3px solid var(--accent-gold);
+            font-size: 18px;
         }
 
-        .profile-info h2 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            color: var(--white);
-        }
-
-        .profile-info p {
-            color: var(--light-blue);
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .dashboard-section {
-            background: rgba(27, 38, 59, 0.8);
-            border-radius: 20px;
-            padding: 40px;
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
             margin-bottom: 40px;
-            border: 1px solid rgba(119, 141, 169, 0.3);
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info-panel {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .info-panel h2 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .description {
+            line-height: 1.7;
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .spec-item i {
+            color: var(--gold);
+            font-size: 14px;
+        }
+
+        .dashboard-container {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
         }
 
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            color: var(--accent-gold);
+        .dashboard-header {
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .dashboard-title {
+            font-size: 1.1rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .section-title i {
-            font-size: 1.5rem;
+        .dashboard-title i {
+            color: var(--gold);
         }
 
-        .dashboard-description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 30px;
-            color: var(--text-light);
+        .iframe-container {
+            height: 600px;
+            width: 100%;
         }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
         }
 
-        .feature-card {
-            background: rgba(13, 27, 42, 0.6);
-            padding: 25px;
-            border-radius: 15px;
-            border-left: 4px solid var(--accent-gold);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-shadow);
-        }
-
-        .feature-card h3 {
-            color: var(--white);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .feature-card p {
-            color: var(--light-blue);
-            font-size: 0.95rem;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .tech-item {
-            background: var(--accent-blue);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+        .action-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gold);
+            text-decoration: none;
             font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
         }
 
-        .powerbi-embed {
-            background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 100%);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            margin: 40px 0;
-            border: 2px dashed var(--accent-gold);
-        }
-
-        .powerbi-embed h3 {
-            color: var(--accent-gold);
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        .powerbi-embed p {
-            color: var(--light-blue);
-            margin-bottom: 25px;
-            font-size: 1.1rem;
+        .action-link:hover {
+            background: rgba(234, 179, 8, 0.1);
         }
 
         footer {
             text-align: center;
-            padding: 30px 0;
-            color: var(--light-blue);
-            font-size: 0.95rem;
-            border-top: 1px solid rgba(119, 141, 169, 0.3);
-            margin-top: 40px;
-        }
-
-        .executive-colors {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+            padding: 20px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
             margin-top: 20px;
-            flex-wrap: wrap;
         }
 
-        .color-item {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: bold;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .color-1 { background: var(--primary-dark); color: var(--white); }
-        .color-2 { background: var(--primary-blue); color: var(--white); }
-        .color-3 { background: var(--accent-blue); color: var(--white); }
-        .color-4 { background: var(--accent-gold); color: var(--primary-dark); }
-        .color-5 { background: var(--text-light); color: var(--primary-dark); }
-
-        @media (max-width: 768px) {
-            .profile-section {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-title {
-                font-size: 1.5rem;
-            }
+        .highlight {
+            color: var(--gold-light);
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">TEXAD Sales Analytics</div>
-            <p class="tagline">Dashboard de Predicciones de Ventas - Power BI</p>
-        </header>
-
-        <section class="profile-section">
-            <div class="profile-image">
-                <i class="fas fa-user-graduate"></i>
-            </div>
-            <div class="profile-info">
-                <h2>Estudiante de Ingeniería de Sistemas</h2>
-                <p>Análisis Predictivo • Inteligencia de Negocios • Visualización de Datos</p>
-                <p>Universidad Nacional de Ingeniería</p>
-            </div>
-        </section>
-
-        <section class="dashboard-section">
-            <h2 class="section-title"><i class="fas fa-chart-line"></i> Dashboard: Predicciones de Ventas TEXAD</h2>
-            <p class="dashboard-description">
-                Este dashboard de Power BI presenta un análisis predictivo avanzado de las ventas de TEXAD, 
-                una empresa líder en su sector. Utilizando algoritmos de machine learning y técnicas de 
-                inteligencia de negocios, el dashboard permite visualizar tendencias futuras, identificar 
-                patrones estacionales y tomar decisiones estratégicas basadas en datos.
-            </p>
-
-            <div class="tech-stack">
-                <div class="tech-item">Power BI</div>
-                <div class="tech-item">DAX</div>
-                <div class="tech-item">Python</div>
-                <div class="tech-item">SQL</div>
-                <div class="tech-item">Machine Learning</div>
-                <div class="tech-item">Time Series Analysis</div>
-            </div>
-
-            <div class="features">
-                <div class="feature-card">
-                    <h3><i class="fas fa-forecast"></i> Predicciones Precisas</h3>
-                    <p>Modelos predictivos que anticipan ventas futuras con alta precisión utilizando series temporales y regresión.</p>
+        <div class="header">
+            <div class="logo">TEXAD  | Power BI & Python Dashboard </div>
+            <div class="profile">
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
                 </div>
-                <div class="feature-card">
-                    <h3><i class="fas fa-filter"></i> Segmentación Inteligente</h3>
-                    <p>Análisis por categorías de productos, regiones geográficas y temporadas del año.</p>
-                </div>
-                <div class="feature-card">
-                    <h3><i class="fas fa-trend-up"></i> KPIs Estratégicos</h3>
-                    <p>Indicadores clave como crecimiento mensual, margen de beneficio y rotación de inventario.</p>
-                </div>
-                <div class="feature-card">
-                    <h3><i class="fas fa-mobile-alt"></i> Responsive Design</h3>
-                    <p>Visualización optimizada para todos los dispositivos, desde escritorio hasta móviles.</p>
-                </div>
+                <span>Luis Perez A.</span>
             </div>
-        </section>
-
-        <div class="powerbi-embed">
-            <h3><i class="fas fa-external-link-alt"></i> Visualización del Dashboard</h3>
-            <p>Interactúa directamente con el dashboard de Power BI:</p>
-            <iframe 
-                width="100%" 
-                height="600px" 
-                src="https://app.powerbi.com/view?r=eyJrIjoiMmVkNTllYjQtZDEwYy00ZDgzLWJjZDktZDI0N2YxNzEwMDIzIiwidCI6IjU4OTViMDU4LTU5YzQtNDJjOS1iMTI3LTcwODQ5OGFmYjQ1MiJ9" 
-                frameborder="0" 
-                allowFullScreen="true">
-            </iframe>
-            <p style="margin-top: 20px; font-style: italic;">* Si tienes problemas de visualización, asegúrate de estar logueado en Power BI</p>
         </div>
 
-        <div class="dashboard-section">
-            <h2 class="section-title"><i class="fas fa-palette"></i> Paleta de Colores Ejecutivos</h2>
-            <p style="text-align: center; margin-bottom: 25px;">Colores profesionales seleccionados para transmitir confianza y sofisticación</p>
-            <div class="executive-colors">
-                <div class="color-item color-1">#0D1B2A</div>
-                <div class="color-item color-2">#1B263B</div>
-                <div class="color-item color-3">#415A77</div>
-                <div class="color-item color-4">#D9A741</div>
-                <div class="color-item color-5">#E0E1DD</div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <i class="fab fa-microsoft"></i>
+                        TEXAD - Dashboard 
+                    </div>
+                    <a href="https://app.powerbi.com/view?r=eyJrIjoiMmVkNTllYjQtZDEwYy00ZDgzLWJjZDktZDI0N2YxNzEwMDIzIiwidCI6IjU4OTViMDU4LTU5YzQtNDJjOS1iMTI3LTcwODQ5OGFmYjQ1MiJ9" 
+                       target="_blank" 
+                       class="action-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Ver Completo
+                    </a>
+                </div>
+                <div class="iframe-container">
+                    <iframe 
+                        src="https://app.powerbi.com/view?r=eyJrIjoiMmVkNTllYjQtZDEwYy00ZDgzLWJjZDktZDI0N2YxNzEwMDIzIiwidCI6IjU4OTViMDU4LTU5YzQtNDJjOS1iMTI3LTcwODQ5OGFmYjQ1MiJ9" 
+                        allowFullScreen="true">
+                    </iframe>
+                </div>
             </div>
         </div>
 
         <footer>
-            <p>Portafolio de Proyecto Académico | Ingeniería de Sistemas | © 2025</p>
-            <p>Diseñado con enfoque ejecutivo y profesional para presentaciones corporativas</p>
+            <p>Todos los derechos reservados  | © 2025</p>
         </footer>
     </div>
 </body>
 </html>
+
